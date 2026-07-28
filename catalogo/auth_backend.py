@@ -1,10 +1,10 @@
-from django.conf import settings
+import os
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
 
 class DevAuthBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
-        if not settings.DEBUG:
+        if os.environ.get('DISABLE_AUTH', 'False') != 'True':
             return None
         User = get_user_model()
         try:
