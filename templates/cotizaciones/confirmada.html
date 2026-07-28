@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Cotización Confirmada - SecureTech{% endblock %}
+{% block title %}Cotización Confirmada - EckoNova{% endblock %}
 {% block content %}
 <section class="py-5">
     <div class="text-center py-5">
@@ -48,7 +48,7 @@
                 <i class="bi bi-whatsapp me-2"></i>Compartir por WhatsApp
             </a>
             {% endif %}
-            <a href="mailto:?subject=Cotización SecureTech #{{ cotizacion.id }}&body=Hola, te comparto mi cotización de SecureTech: {{ request.scheme }}://{{ request.get_host }}/cotizar/pdf/{{ cotizacion.id }}/" class="btn btn-accent btn-lg rounded-pill px-4 py-3">
+            <a href="mailto:?subject=Cotización EckoNova #{{ cotizacion.id }}&body=Hola, te comparto mi cotización de EckoNova: {{ request.scheme }}://{{ request.get_host }}/cotizar/pdf/{{ cotizacion.id }}/" class="btn btn-accent btn-lg rounded-pill px-4 py-3">
                 <i class="bi bi-envelope me-2"></i>Enviar por Email
             </a>
         </div>

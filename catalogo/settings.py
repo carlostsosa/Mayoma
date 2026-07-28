@@ -114,13 +114,13 @@ if not DEBUG:
     SECURE_SSL_REDIRECT = True
 
 JAZZMIN_SETTINGS = {
-    "site_title": "SecureTech Admin",
-    "site_header": "SecureTech",
-    "site_brand": "SecureTech",
+    "site_title": "EckoNova Admin",
+    "site_header": "EckoNova",
+    "site_brand": "EckoNova",
     "site_logo": None,
     "login_logo": None,
     "welcome_sign": "Bienvenido al panel de administración",
-    "copyright": "SecureTech",
+    "copyright": "EckoNova",
     "search_model": ["productos.Producto", "auth.User"],
     "user_avatar": None,
     "topmenu_links": [
