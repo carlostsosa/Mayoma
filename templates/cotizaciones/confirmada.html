@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Cotización Confirmada - SecureTech{% endblock %}
+{% block content %}
+<section class="py-5">
+    <div class="text-center py-5">
+        <div class="icon-box mx-auto mb-4" style="width:80px;height:80px;font-size:2.5rem;background:linear-gradient(135deg,rgba(0,212,255,0.2),rgba(124,58,237,0.2));color:#22c55e">
+            <i class="bi bi-check-circle-fill"></i>
+        </div>
+        <h1 class="fw-bold mb-2">¡Cotización Enviada!</h1>
+        <p class="lead text-muted">Hemos recibido tu solicitud <strong class="text-light">#{{ cotizacion.id }}</strong></p>
+        <p class="text-muted">Te hemos enviado una copia a <strong style="color:var(--accent)">{{ cotizacion.email }}</strong></p>
+
+        <div class="card mx-auto mt-4 border-0" style="max-width:550px">
+            <div class="card-header bg-transparent border-secondary py-3">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-receipt me-2" style="color:var(--accent)"></i>Resumen de cotización</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr><th>Servicio</th><th>Cant.</th><th>Precio</th><th class="text-end">Subtotal</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cotizacion.items.all %}
+                        <tr>
+                            <td>{{ item.producto_nombre }}</td>
+                            <td>x{{ item.cantidad }}</td>
+                            <td>${{ item.precio_unitario|floatformat:2 }}</td>
+                            <td class="text-end">${{ item.subtotal|floatformat:2 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr class="fw-bold">
+                            <td colspan="3">Total</td>
+                            <td class="text-end fs-5" style="color:var(--accent)">${{ cotizacion.total|floatformat:2 }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+            <a href="/cotizar/pdf/{{ cotizacion.id }}/" class="btn btn-outline-light btn-lg rounded-pill px-4 py-3" target="_blank">
+                <i class="bi bi-file-pdf me-2" style="color:#ff4444"></i>Descargar PDF
+            </a>
+            {% if cotizacion.telefono %}
+            <a href="https://wa.me/{{ cotizacion.telefono|cut:'+'|cut:' ' }}" class="btn btn-success btn-lg rounded-pill px-5 py-3" target="_blank">
+                <i class="bi bi-whatsapp me-2"></i>Compartir por WhatsApp
+            </a>
+            {% endif %}
+            <a href="mailto:?subject=Cotización SecureTech #{{ cotizacion.id }}&body=Hola, te comparto mi cotización de SecureTech: {{ request.scheme }}://{{ request.get_host }}/cotizar/pdf/{{ cotizacion.id }}/" class="btn btn-accent btn-lg rounded-pill px-4 py-3">
+                <i class="bi bi-envelope me-2"></i>Enviar por Email
+            </a>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-center gap-2 mt-3">
+            <a href="/catalogo/" class="btn btn-outline-light rounded-pill px-4">
+                <i class="bi bi-arrow-left me-1"></i> Seguir viendo servicios
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

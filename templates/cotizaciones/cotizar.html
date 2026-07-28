@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Cotizar - SecureTech{% endblock %}
+{% block content %}
+<section class="py-4">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Solicitar Cotización</h1>
+        <p class="text-muted">Completa tus datos y te enviaremos una cotización personalizada</p>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card border-0">
+                <div class="card-header bg-transparent border-secondary d-flex justify-content-between align-items-center py-3">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-cart-fill me-2" style="color:var(--accent)"></i>Productos seleccionados</h5>
+                    <button class="btn btn-sm btn-outline-danger rounded-pill px-3" onclick="vaciarCarrito()">
+                        <i class="bi bi-trash me-1"></i>Vaciar
+                    </button>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cant.</th>
+                                <th>Precio</th>
+                                <th>Subtotal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="carritoItems">
+                            <tr><td colspan="5" class="text-center text-muted py-4">Cargando...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer bg-transparent border-secondary d-flex justify-content-between align-items-center py-3">
+                    <span class="fw-bold">Total:</span>
+                    <span class="fs-3 fw-bold" style="color:var(--accent)" id="carritoTotal">$0.00</span>
+                </div>
+            </div>
+
+            <div class="card border-0 mt-4">
+                <div class="card-header bg-transparent border-secondary py-3">
+                    <h5 class="mb-0 fw-bold"><i class="bi bi-person me-2" style="color:var(--accent)"></i>Tus datos</h5>
+                </div>
+                <div class="card-body">
+                    <form id="cotizacionForm" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            {% for field in form %}
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-medium">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}<div class="text-danger small mt-1">{{ field.errors }}</div>{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <input type="hidden" name="productos" id="productosInput">
+                        <button type="submit" class="btn btn-accent btn-lg w-100 rounded-pill py-3 mt-2">
+                            <i class="bi bi-send-fill me-2"></i>Enviar Cotización
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card border-0 p-4 text-center">
+                <i class="bi bi-whatsapp" style="font-size:3rem;color:#25D366"></i>
+                <h5 class="fw-bold mt-3">Recíbela por WhatsApp</h5>
+                <p class="small text-muted">Después de enviar tu cotización, podrás compartirla al instante por WhatsApp con un solo clic.</p>
+                <hr class="text-secondary">
+                <i class="bi bi-envelope" style="font-size:3rem;color:var(--accent)"></i>
+                <h5 class="fw-bold mt-3">También por Email</h5>
+                <p class="small text-muted">Recibirás una copia detallada de tu cotización en tu correo electrónico.</p>
+                <hr class="text-secondary">
+                <div class="small text-muted">
+                    <i class="bi bi-shield-check" style="color:var(--accent)"></i>
+                    <span class="ms-1">Tus datos están seguros y serán usados solo para esta cotización.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block extra_js %}
+<script>
+renderCarrito();
+
+document.getElementById("cotizacionForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
+    if (carrito.length === 0) {
+        alert("Agrega al menos un producto al carrito.");
+        return;
+    }
+    document.getElementById("productosInput").value = JSON.stringify(carrito);
+
+    const formData = new FormData(this);
+    fetch("/cotizar/crear/", {
+        method: "POST",
+        body: formData,
+        headers: { "X-CSRFToken": document.querySelector("[name=csrfmiddlewaretoken]").value }
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.ok) {
+            localStorage.removeItem("carrito");
+            actualizarWidget();
+            if (data.whatsapp_url) {
+                if (confirm("Cotización creada con éxito. ¿Abrir WhatsApp para compartirla?")) {
+                    window.open(data.whatsapp_url, "_blank");
+                }
+            }
+            window.location.href = "/cotizar/confirmada/" + data.cotizacion_id + "/";
+        } else {
+            alert("Error: " + (data.error || "Desconocido"));
+        }
+    })
+    .catch(err => alert("Error de conexión: " + err));
+});
+</script>
+{% endblock %}

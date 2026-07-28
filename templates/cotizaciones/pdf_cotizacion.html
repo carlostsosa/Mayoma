@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cotización #{{ cotizacion.id }}</title>
+    <style>
+        @page { size: letter; margin: 2cm; }
+        body { font-family: Helvetica, Arial, sans-serif; color: #1a1a2e; font-size: 12px; }
+        h1 { font-size: 22px; color: #0a1628; margin-bottom: 5px; }
+        h2 { font-size: 16px; color: #00d4ff; margin-bottom: 15px; }
+        .header { border-bottom: 3px solid #00d4ff; padding-bottom: 15px; margin-bottom: 20px; }
+        .header table { width: 100%; }
+        .header td { vertical-align: top; }
+        .logo { font-size: 28px; font-weight: bold; color: #0a1628; }
+        .logo span { color: #00d4ff; }
+        .info { margin-bottom: 25px; }
+        .info td { padding: 3px 0; }
+        .info-label { font-weight: bold; color: #555; width: 120px; }
+        table.items { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        table.items th { background: #0a1628; color: white; padding: 10px; text-align: left; font-size: 11px; text-transform: uppercase; }
+        table.items td { padding: 10px; border-bottom: 1px solid #e0e0e0; }
+        table.items tr:nth-child(even) { background: #f8f9fa; }
+        .total-row td { font-weight: bold; font-size: 14px; border-top: 2px solid #0a1628; }
+        .footer { margin-top: 30px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 10px; color: #888; text-align: center; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 11px; background: #00d4ff; color: white; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <table>
+            <tr>
+                <td>
+                    <div class="logo">Secure<span>Tech</span></div>
+                    <div style="color:#666;font-size:11px;">Instalación profesional de sistemas de acceso y seguridad</div>
+                </td>
+                <td style="text-align:right">
+                    <h1>COTIZACIÓN #{{ cotizacion.id }}</h1>
+                    <div style="color:#888;">{{ cotizacion.created_at|date:"d/m/Y H:i" }}</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <table class="info">
+        <tr><td class="info-label">Cliente:</td><td>{{ cotizacion.nombre }}</td></tr>
+        <tr><td class="info-label">Email:</td><td>{{ cotizacion.email }}</td></tr>
+        {% if cotizacion.telefono %}<tr><td class="info-label">Teléfono:</td><td>{{ cotizacion.telefono }}</td></tr>{% endif %}
+        {% if cotizacion.mensaje %}<tr><td class="info-label">Comentarios:</td><td>{{ cotizacion.mensaje }}</td></tr>{% endif %}
+    </table>
+
+    <table class="items">
+        <thead>
+            <tr>
+                <th style="width:60%">Producto / Servicio</th>
+                <th style="width:15%;text-align:center">Cant.</th>
+                <th style="width:15%;text-align:right">Precio</th>
+                <th style="width:15%;text-align:right">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cotizacion.items.all %}
+            <tr>
+                <td>{{ item.producto_nombre }}</td>
+                <td style="text-align:center">{{ item.cantidad }}</td>
+                <td style="text-align:right">${{ item.precio_unitario|floatformat:2 }}</td>
+                <td style="text-align:right">${{ item.subtotal|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="total-row">
+                <td colspan="3" style="text-align:right">TOTAL:</td>
+                <td style="text-align:right;color:#00d4ff">${{ cotizacion.total|floatformat:2 }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p style="font-size:11px;color:#666;"><strong>Nota:</strong> Esta cotización tiene una validez de 15 días. Los precios incluyen instalación profesional. Para contratar, favor de contactarnos.</p>
+
+    <div class="footer">
+        SecureTech - contacto@securetech.mx - +52 555 123 4567<br>
+        Ciudad de México &bull; Todos los derechos reservados
+    </div>
+</body>
+</html>

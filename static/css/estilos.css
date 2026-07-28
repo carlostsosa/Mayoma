@@ -1,0 +1,261 @@
+:root {
+    --primary: #0a1628;
+    --secondary: #1a2a4a;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --card-bg: #0f1d35;
+    --border: #1e3a5f;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--primary);
+    color: var(--text);
+    padding-top: 76px;
+}
+
+.navbar {
+    background: rgba(10, 22, 40, 0.95) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar .nav-link {
+    color: var(--text-muted) !important;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.navbar .nav-link:hover {
+    color: var(--accent) !important;
+}
+
+.navbar-brand {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.btn-accent {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-accent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+    color: white;
+}
+
+.hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, #0f0a2a 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 120px 0 100px;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(124, 58, 237, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.hero-shape {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: var(--primary);
+    clip-path: ellipse(70% 100% at 50% 100%);
+}
+
+.section-title {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: all 0.3s;
+}
+
+.card.position-relative {
+    cursor: pointer;
+}
+
+.card:hover {
+    border-color: var(--accent);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0, 212, 255, 0.1);
+}
+
+.producto-img {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 16px 16px 0 0;
+}
+
+.badge-cat {
+    background: rgba(0, 212, 255, 0.15);
+    color: var(--accent);
+    font-weight: 500;
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: 20px;
+    padding: 6px 18px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--primary);
+}
+
+input, textarea, select, .form-control, .form-select {
+    background: var(--card-bg) !important;
+    border: 1px solid var(--border) !important;
+    color: var(--text) !important;
+    border-radius: 12px;
+    padding: 10px 16px;
+}
+
+input:focus, textarea:focus, select:focus, .form-control:focus, .form-select:focus {
+    background: var(--card-bg) !important;
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15) !important;
+    color: var(--text) !important;
+}
+
+input::placeholder, textarea::placeholder, .form-control::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 1;
+}
+
+label, .form-label {
+    color: var(--text) !important;
+}
+
+select option {
+    background: var(--card-bg);
+    color: var(--text);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--text) !important;
+    -webkit-box-shadow: 0 0 0px 1000px var(--card-bg) inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.footer {
+    background: var(--secondary);
+    border-top: 1px solid var(--border);
+}
+
+.footer a:hover {
+    color: var(--accent) !important;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.icon-box {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(124, 58, 237, 0.15));
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+.table {
+    color: var(--text) !important;
+    --bs-table-color: var(--text);
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: rgba(255,255,255,0.03);
+    --bs-table-striped-color: var(--text);
+    --bs-table-hover-bg: rgba(0,212,255,0.05);
+    --bs-table-hover-color: var(--text);
+}
+
+.table th {
+    border-color: var(--border) !important;
+    color: var(--accent) !important;
+}
+
+.table td {
+    border-color: var(--border) !important;
+    color: var(--text) !important;
+}
+
+.card-header, .card-footer {
+    color: var(--text) !important;
+}
+
+.breadcrumb-item {
+    color: var(--text-muted) !important;
+}
+
+.breadcrumb-item.active {
+    color: var(--text) !important;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: var(--text-muted) !important;
+}
+
+.alert-modern {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    color: var(--text);
+}
+
+p.text-light {
+    color: rgba(255, 255, 255, 0.92) !important;
+}

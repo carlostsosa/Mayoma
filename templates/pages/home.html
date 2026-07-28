@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}SecureTech - Instalación de Sistemas de Acceso y Seguridad{% endblock %}
+{% block content %}
+
+<section class="hero">
+    <div class="container position-relative">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="badge bg-accent-subtle text-accent mb-3 px-3 py-2 rounded-pill">
+                    <i class="bi bi-lightning-fill me-1"></i> Expertos en tecnología
+                </span>
+                <h1 class="display-4 fw-bold mb-4">
+                    Instalación profesional de<br>
+                    <span class="gradient-text">control de acceso</span> y<br>
+                    cerraduras inteligentes
+                </h1>
+                <p class="lead text-muted mb-4">
+                    Transformamos tu hogar o negocio con soluciones tecnológicas de vanguardia.
+                    Sistemas de acceso biometrico, cerraduras electrónicas, videporteros y más.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="/catalogo/" class="btn btn-accent btn-lg rounded-pill px-5 py-3">
+                        <i class="bi bi-grid me-2"></i>Ver Servicios
+                    </a>
+                    <a href="/cotizar/" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3">
+                        <i class="bi bi-whatsapp me-2"></i>Solicitar Cotización
+                    </a>
+                </div>
+                <div class="d-flex gap-4 mt-5">
+                    <div>
+                        <h3 class="fw-bold gradient-text mb-0">+500</h3>
+                        <small class="text-muted">Instalaciones realizadas</small>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold gradient-text mb-0">98%</h3>
+                        <small class="text-muted">Clientes satisfechos</small>
+                    </div>
+                    <div>
+                        <h3 class="fw-bold gradient-text mb-0">24/7</h3>
+                        <small class="text-muted">Soporte técnico</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="position-relative">
+                    <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=600&q=80" alt="Smart home security" class="img-fluid rounded-4 shadow-lg">
+                    <div class="position-absolute bottom-0 start-0 bg-dark bg-opacity-75 rounded-4 p-3 m-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="bi bi-shield-check text-accent fs-4"></i>
+                            <div>
+                                <small class="fw-bold d-block">Instalación certificada</small>
+                                <small class="text-muted">Garantía en todos los servicios</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-shape"></div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">¿Por qué elegirnos?</h2>
+            <p class="section-subtitle">Tecnología de punta con instalación profesional</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-3">
+                <div class="card h-100 p-4 text-center border-0">
+                    <div class="icon-box mx-auto mb-3">
+                        <i class="bi bi-fingerprint"></i>
+                    </div>
+                    <h5 class="fw-bold">Acceso Biométrico</h5>
+                    <p class="small text-muted mb-0">Sistemas de huella digital, reconocimiento facial y tarjetas de proximidad.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 p-4 text-center border-0">
+                    <div class="icon-box mx-auto mb-3">
+                        <i class="bi bi-smart-lock"></i>
+                    </div>
+                    <h5 class="fw-bold">Cerraduras Inteligentes</h5>
+                    <p class="small text-muted mb-0">Control desde tu smartphone, códigos temporales y acceso remoto.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 p-4 text-center border-0">
+                    <div class="icon-box mx-auto mb-3">
+                        <i class="bi bi-camera-video"></i>
+                    </div>
+                    <h5 class="fw-bold">Videovigilancia</h5>
+                    <p class="small text-muted mb-0">Cámaras HD, visión nocturna y monitoreo en tiempo real desde tu celular.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card h-100 p-4 text-center border-0">
+                    <div class="icon-box mx-auto mb-3">
+                        <i class="bi bi-house-gear"></i>
+                    </div>
+                    <h5 class="fw-bold">Domótica</h5>
+                    <p class="small text-muted mb-0">Automatización de puertas, iluminación y climatización inteligente.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% if categorias %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Nuestras Categorías</h2>
+            <p class="section-subtitle">Explora nuestras soluciones por tipo de servicio</p>
+        </div>
+        <div class="row g-4">
+            {% for cat in categorias %}
+            <div class="col-6 col-md-3">
+                <a href="/catalogo/?categoria={{ cat.slug }}" class="text-decoration-none">
+                    <div class="card h-100 p-4 text-center">
+                        <div class="icon-box mx-auto mb-3">
+                            {% if 'acceso' in cat.nombre|lower %}
+                                <i class="bi bi-key"></i>
+                            {% elif 'cerradura' in cat.nombre|lower or 'lock' in cat.nombre|lower %}
+                                <i class="bi bi-lock-fill"></i>
+                            {% elif 'cctv' in cat.nombre|lower or 'camara' in cat.nombre|lower or 'video' in cat.nombre|lower %}
+                                <i class="bi bi-camera-video-fill"></i>
+                            {% elif 'domotica' in cat.nombre|lower or 'automatizacion' in cat.nombre|lower %}
+                                <i class="bi bi-house-gear-fill"></i>
+                            {% else %}
+                                <i class="bi bi-gear-fill"></i>
+                            {% endif %}
+                        </div>
+                        <h6 class="fw-bold mb-1">{{ cat.nombre }}</h6>
+                        <small class="text-muted">{{ cat.productos.count }} servicios</small>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if destacados %}
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div>
+                <h2 class="section-title mb-0">Servicios Destacados</h2>
+                <p class="section-subtitle mb-0">Los más solicitados por nuestros clientes</p>
+            </div>
+            <a href="/catalogo/" class="btn btn-accent rounded-pill px-4">Ver todo <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+        <div class="row g-4">
+            {% for p in destacados %}
+            <div class="col-6 col-md-3">
+                <div class="card h-100 position-relative">
+                    <a href="{% url 'productos:detalle' p.slug %}">
+                        {% if p.imagen %}
+                            <img src="{{ p.imagen.url }}" class="card-img-top producto-img" alt="{{ p.nombre }}">
+                        {% else %}
+                            <div class="card-img-top producto-img d-flex align-items-center justify-content-center" style="background:linear-gradient(135deg, var(--secondary), var(--primary))">
+                                <i class="bi bi-image" style="font-size:3rem;color:var(--accent)"></i>
+                            </div>
+                        {% endif %}
+                    </a>
+                    <div class="card-body d-flex flex-column p-3">
+                        <span class="badge-cat align-self-start mb-2">{{ p.categoria.nombre }}</span>
+                        <h6 class="fw-bold mb-1">
+                            <a href="{% url 'productos:detalle' p.slug %}" class="stretched-link text-decoration-none text-light">{{ p.nombre }}</a>
+                        </h6>
+                        <p class="text-light small flex-grow-1">{{ p.descripcion|truncatewords:12 }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top border-secondary">
+                            <strong class="fs-5" style="color:var(--accent)">${{ p.precio }}</strong>
+                            <button class="btn btn-sm btn-accent rounded-circle p-2" onclick="event.stopPropagation(); agregarProducto({{ p.id }}, '{{ p.nombre|escapejs }}', {{ p.precio }})" title="Agregar a cotización">
+                                <i class="bi bi-plus-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="py-5">
+    <div class="container">
+        <div class="card border-0 p-5 rounded-4" style="background:linear-gradient(135deg, var(--secondary), #0f0a2a)">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h2 class="fw-bold mb-2">¿Listo para modernizar tu hogar o negocio?</h2>
+                    <p class="text-muted mb-0">Solicita una cotización sin compromiso y uno de nuestros expertos te atenderá.</p>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                    <a href="/cotizar/" class="btn btn-accent btn-lg rounded-pill px-5">
+                        <i class="bi bi-send me-2"></i>Solicitar Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
