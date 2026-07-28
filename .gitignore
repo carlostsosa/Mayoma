@@ -1,0 +1,11 @@
+*.pyc
+__pycache__/
+*.log
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+.env
+server_out.log
+server_err.log
+test_*.html
