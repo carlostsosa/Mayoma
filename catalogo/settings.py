@@ -65,6 +65,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'catalogo.wsgi.application'
 
+AUTHENTICATION_BACKENDS = [
+    'catalogo.auth_backend.DevAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DB_ENGINE', 'django.db.backends.sqlite3'),
