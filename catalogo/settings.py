@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'productos',
     'pages',
     'cotizaciones',
@@ -101,6 +103,13 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', 'jtp1vjly'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '673446578359419'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', 'DoSKBrXkd47IUhXhg2Js_ASqg70'),
+}
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
